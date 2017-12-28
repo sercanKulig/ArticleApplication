@@ -8,34 +8,34 @@ import com.article.services.ArticleServiceInterface;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ArticleController {
 
     @Autowired
     private ArticleServiceInterface articleService;
 
-    @RequestMapping("/article")
+    @RequestMapping("/articles")
     public List<Article> getArticles() {
         return articleService.getAllArticleList();
     }
 
-/*    @RequestMapping("/articles/{id}")
-    public Article getArticle(@PathVariable String id){
+    @RequestMapping("/article/{id}")
+    public Article getArticle(@PathVariable long id){
         return articleService.getArticle(id);
-    }*/
-
-    @RequestMapping(method = RequestMethod.POST, value = "/article/articleSingle")
-    public Article getArticle(@RequestBody Article article){
-        Article article1 = articleService.getArticle(article.getArticleId());
-        return article1;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/article")
+/*    @RequestMapping(method = RequestMethod.POST, value = "/article")
+    public Article getArticle(@RequestBody Article article){
+        return articleService.getArticle(article.getArticleId());
+    }*/
+
+    @RequestMapping(method = RequestMethod.POST, value = "/addArticle")
     public void addArticle(@RequestBody Article article) {
         articleService.addArticle(article);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/article/articleUpdate/{id}")
-    public void updateArticle(@RequestBody Article article, @PathVariable int id) {
+    @RequestMapping(method = RequestMethod.PUT, value = "/articleUpdate/{id}")
+    public void updateArticle(@RequestBody Article article, @PathVariable long id) {
         articleService.updateArticle(article, id);
     }
 
@@ -44,7 +44,7 @@ public class ArticleController {
 //        articleService.deleteArticle(id);
 //    }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/article/articleDelete")
+    @RequestMapping(method = RequestMethod.POST, value = "/articleDelete")
     public void deleteArticle(@RequestBody Article article) {
         articleService.deleteArticle(article.getArticleId());
     }

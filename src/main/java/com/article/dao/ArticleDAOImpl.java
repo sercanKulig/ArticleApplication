@@ -22,7 +22,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
-    public Article getArticle(int id) {
+    public Article getArticle(long id) {
         return entityManager.find(Article.class, id);
     }
 
@@ -32,16 +32,18 @@ public class ArticleDAOImpl implements ArticleDAO {
     }
 
     @Override
-    public void updateArticle(Article article, int id) {
+    public boolean updateArticle(Article article, long id) {
         Article artcl = getArticle(article.getArticleId());
         artcl.setTitle(article.getTitle());
         artcl.setCategory(article.getCategory());
         entityManager.flush();
+        return true;
     }
 
     @Override
-    public void deleteArticle(int id) {
+    public boolean deleteArticle(long id) {
         entityManager.remove(getArticle(id));
+        return true;
     }
 
     @Override

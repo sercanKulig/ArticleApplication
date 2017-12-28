@@ -2,9 +2,11 @@ package com.article.services;
 
 import com.article.dao.ArticleDAO;
 import com.article.entity.Article;
+import com.article.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,13 +15,20 @@ public class ArticleService implements ArticleServiceInterface {
     @Autowired
     ArticleDAO articleDAO;
 
+    @Autowired
+    ArticleRepository articleRepository;
+
     @Override
     public List<Article> getAllArticleList() {
-        return articleDAO.getAllArticleList();
+        List<Article> articles = new ArrayList<>();
+        articleRepository.findAll()
+                .forEach(articles::add);
+        return articles;
+//        return articleDAO.getAllArticleList();
     }
 
     @Override
-    public Article getArticle(int id) {
+    public Article getArticle(long id) {
         return articleDAO.getArticle(id);
     }
 
@@ -34,12 +43,17 @@ public class ArticleService implements ArticleServiceInterface {
     }
 
     @Override
-    public void updateArticle(Article article, int id) {
-        articleDAO.updateArticle(article, id);
+    public boolean articleExist(Article article){
+        return articleRepository.findOne(article.getArticleId()) != null;
     }
 
     @Override
-    public void deleteArticle(int id) {
-        articleDAO.deleteArticle(id);
+    public boolean updateArticle(Article article, long id) {
+        return articleDAO.updateArticle(article, id);
+    }
+
+    @Override
+    public boolean deleteArticle(long id) {
+        return articleDAO.deleteArticle(id);
     }
 }

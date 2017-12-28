@@ -14,12 +14,13 @@ import java.util.List;
 
 @EnableCircuitBreaker
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user")
+    @RequestMapping("/users")
     public List<User> getUsers() {
         return userService.getUserList();
     }
@@ -27,16 +28,22 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/user")
     @HystrixCommand(fallbackMethod = "emptyUserReturn")
     public User getUser(@RequestBody User user) {
-        return userService.getUser(user);
+        User user1 = userService.getUser(user);
+        return user1;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user/addUser")
+    @RequestMapping(method = RequestMethod.POST, value = "/addUser")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
     public User emptyUserReturn(User user) {
         return user;
+    }
+
+    @RequestMapping("/helloUser")
+    public String helloUser() {
+        return "Hello World";
     }
 
 }

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ArticleDAO {
     List<Article> getAllArticleList();
-    Article getArticle(int id);
+    Article getArticle(long id);
     void addArticle(Article article);
-    void updateArticle(Article article, int id);
-    void deleteArticle(int id);
+    boolean updateArticle(Article article, long id);
+    boolean deleteArticle(long id);
     boolean articleExists(Article article);
 }

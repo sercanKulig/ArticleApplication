@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import com.article.entity.Article;
 
 public class RestClientUtil {
-
+/*
     public void getArticleByIdDemo() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -25,7 +25,7 @@ public class RestClientUtil {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:9090/user/articles";
+        String url = "http://localhost:9090/article/articles";
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
         ResponseEntity<Article[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Article[].class);
         Article[] articles = responseEntity.getBody();
@@ -74,4 +74,5 @@ public class RestClientUtil {
         //util.updateArticleDemo();
         //util.deleteArticleDemo();
     }
+    */
 }

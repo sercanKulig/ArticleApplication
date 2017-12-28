@@ -38,6 +38,35 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 
+    public User(int userId, String name, String surname, String username, String password, String email, int roleId, int active, Role role, UserSecurity userSecurity) {
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roleId = roleId;
+        this.active = active;
+        this.role = role;
+        this.userSecurity = userSecurity;
+    }
+
+    public User(int userId, String name, String surname, String username, String password, String email, int roleId, int active) {
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roleId = roleId;
+        this.active = active;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public User(UserSecurity userSecurity) {
         this.userSecurity = userSecurity;
     }

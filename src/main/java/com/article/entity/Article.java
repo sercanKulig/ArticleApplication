@@ -12,7 +12,7 @@ public class Article implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="article_id")
-    private int articleId;
+    private long articleId;
 
     @Column(name="title")
     private String title;
@@ -20,10 +20,25 @@ public class Article implements Serializable {
     @Column(name="category")
     private String category;
 
-    public int getArticleId() {
+    public Article() {
+    }
+
+    public Article(long articleId, String title, String category) {
+        this.articleId = articleId;
+        this.title = title;
+        this.category = category;
+    }
+
+
+    public Article(String title, String category) {
+        this.title = title;
+        this.category = category;
+    }
+
+    public long getArticleId() {
         return articleId;
     }
-    public void setArticleId(int articleId) {
+    public void setArticleId(long articleId) {
         this.articleId = articleId;
     }
     public String getTitle() {

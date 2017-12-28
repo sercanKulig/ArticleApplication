@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ArticleServiceInterface {
     List<Article> getAllArticleList();
-    Article getArticle(int id);
+    Article getArticle(long id);
     boolean addArticle(Article article);
-    void updateArticle(Article article, int id);
-    void deleteArticle(int id);
+    boolean articleExist(Article article);
+    boolean updateArticle(Article article, long id);
+    boolean deleteArticle(long id);
 }
