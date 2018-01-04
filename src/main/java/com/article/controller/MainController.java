@@ -5,17 +5,15 @@ import com.article.entity.Role;
 import com.article.entity.User;
 import com.article.services.ArticleService;
 import com.article.services.UserService;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Date;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 @SpringBootApplication(
         scanBasePackages={
@@ -23,7 +21,8 @@ import java.util.stream.IntStream;
                 "com.article.services",
                 "com.article.dao",
                 "com.article.aspect",
-                "com.article.schedular"
+                "com.article.scheduler",
+                "com.article.tasklet"
         }
 )
 @EntityScan(
@@ -37,6 +36,7 @@ import java.util.stream.IntStream;
         }
 )
 
+@EnableBatchProcessing
 public class MainController  implements CommandLineRunner {
 
     private UserService userService;
