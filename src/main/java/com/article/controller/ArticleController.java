@@ -9,11 +9,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class ArticleController {
 
-    @Autowired
     private ArticleServiceInterface articleService;
+
+    @Autowired
+    public ArticleController(ArticleServiceInterface articleServiceInterface) {
+        this.articleService = articleServiceInterface;
+    }
 
     @RequestMapping("/articles")
     public List<Article> getArticles() {

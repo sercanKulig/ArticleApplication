@@ -16,7 +16,7 @@ public class User implements Serializable {
     private String email;
     private int roleId;
     private int active;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),

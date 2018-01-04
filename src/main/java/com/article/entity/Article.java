@@ -2,6 +2,7 @@ package com.article.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name="article")
@@ -20,19 +21,24 @@ public class Article implements Serializable {
     @Column(name="category")
     private String category;
 
+    @Column(name="date_creation")
+    private Date dateCreation;
+
     public Article() {
     }
 
-    public Article(long articleId, String title, String category) {
+    public Article(long articleId, String title, String category, Date dateCreation) {
         this.articleId = articleId;
         this.title = title;
         this.category = category;
+        this.dateCreation = dateCreation;
     }
 
 
-    public Article(String title, String category) {
+    public Article(String title, String category, Date dateCreation) {
         this.title = title;
         this.category = category;
+        this.dateCreation = dateCreation;
     }
 
     public long getArticleId() {
@@ -52,5 +58,11 @@ public class Article implements Serializable {
     }
     public void setCategory(String category) {
         this.category = category;
+    }
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

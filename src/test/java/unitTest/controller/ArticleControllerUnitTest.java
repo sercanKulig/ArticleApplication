@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import unitTest.Reference;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -49,7 +50,7 @@ public class ArticleControllerUnitTest extends Reference {
     @Test
     public void getArticles() throws Exception {
         List<Article> articles = Collections.singletonList(
-                new Article("article","articleCategory"));
+                new Article("article","articleCategory",new Date()));
         when(articleService.getAllArticleList()).thenReturn(articles);
         this.mockMvc
                 .perform(get("/api/articles"))
@@ -62,7 +63,7 @@ public class ArticleControllerUnitTest extends Reference {
 
     @Test
     public void getArticle() throws Exception {
-        Article article = new Article(1, "article", "articleCategory");
+        Article article = new Article(1, "article", "articleCategory",new Date());
 
         when(articleService.getArticle(article.getArticleId())).thenReturn(article);
         mockMvc.perform(get("/api/article/{id}", 1))
@@ -76,7 +77,7 @@ public class ArticleControllerUnitTest extends Reference {
 
     @Test
     public void updateArticle() throws Exception {
-        Article article = new Article(1, "article", "articleCategory");
+        Article article = new Article(1, "article", "articleCategory",new Date());
 
         when(articleService.updateArticle(article,1)).thenReturn(true);
         mockMvc.perform(get("/api/article/{id}", 1))
@@ -87,7 +88,7 @@ public class ArticleControllerUnitTest extends Reference {
 
     @Test
     public void addArticle() throws Exception {
-        Article article = new Article(1,"article", "articleCategory");
+        Article article = new Article(1,"article", "articleCategory",new Date());
         when(articleService.articleExist(article)).thenReturn(true);
         when(articleService.addArticle(any(Article.class))).thenReturn(true);
         mockMvc.perform(
@@ -101,7 +102,7 @@ public class ArticleControllerUnitTest extends Reference {
 
     @Test
     public void deleteArticle() throws Exception {
-        Article article = new Article(1,"article", "articleCategory");
+        Article article = new Article(1,"article", "articleCategory",new Date());
         when(articleService.deleteArticle(article.getArticleId())).thenReturn(true);
         mockMvc.perform(
                 post("/api/articleDelete")

@@ -12,11 +12,15 @@ import java.util.List;
 @Service
 public class ArticleService implements ArticleServiceInterface {
 
-    @Autowired
-    ArticleDAO articleDAO;
+    private ArticleDAO articleDAO;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    ArticleRepository articleRepository;
+    public ArticleService(ArticleRepository articleRepository, ArticleDAO articleDAO) {
+        this.articleRepository = articleRepository;
+        this.articleDAO = articleDAO;
+    }
+
 
     @Override
     public List<Article> getAllArticleList() {

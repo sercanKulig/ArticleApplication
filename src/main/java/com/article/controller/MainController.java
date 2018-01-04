@@ -10,13 +10,20 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import java.util.Date;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 @SpringBootApplication(
         scanBasePackages={
                 "com.article.controller",
                 "com.article.services",
-                "com.article.dao"
+                "com.article.dao",
+                "com.article.aspect",
+                "com.article.schedular"
         }
 )
 @EntityScan(
@@ -31,11 +38,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 )
 
 public class MainController  implements CommandLineRunner {
-    @Autowired
+
     private UserService userService;
+    private ArticleService articleService;
 
     @Autowired
-    private ArticleService articleService;
+    public MainController(UserService userService, ArticleService articleService) {
+        this.articleService = articleService;
+        this.userService = userService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(MainController.class,args);
@@ -48,6 +59,7 @@ public class MainController  implements CommandLineRunner {
         // save user
         userService.addUser(new User("admin","administrator","admin","123456",null,1,1));
         // save article
-        articleService.addArticle(new Article("article","articleCategory"));
+        articleService.addArticle(new Article("article","articleCategory",new Date()));
     }
+
 }

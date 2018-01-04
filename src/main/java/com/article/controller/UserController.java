@@ -15,8 +15,13 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/users")
     public List<User> getUsers() {
