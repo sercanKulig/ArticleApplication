@@ -1,6 +1,8 @@
 package com.article.controller;
 
 import com.article.entity.Article;
+import com.article.enumerations.ResponseMessageStatus;
+import com.article.model.dto.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.article.services.ArticleServiceInterface;
@@ -48,6 +50,11 @@ public class ArticleController {
 //    public void deleteArticle(@PathVariable String id) {
 //        articleService.deleteArticle(id);
 //    }
+
+    @RequestMapping("/hello")
+    public ResponseDto returnDto() {
+        return new ResponseDto(true,"naber", ResponseMessageStatus.SUCCESS,"birşeyler");
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/articleDelete")
     public void deleteArticle(@RequestBody Article article) {

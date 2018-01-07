@@ -1,6 +1,8 @@
 package com.article.controller;
 
 import com.article.entity.User;
+import com.article.enumerations.ResponseMessageStatus;
+import com.article.model.dto.UserDTO;
 import com.article.services.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import java.util.List;
 @EnableCircuitBreaker
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
 
@@ -28,11 +30,16 @@ public class UserController {
         return userService.getUserList();
     }
 
+    @RequestMapping("/usersDTO")
+    public UserDTO getUsersDTO() {
+        List<User> user1 = userService.getUserList();
+        return new UserDTO(true,"a",ResponseMessageStatus.SUCCESS,user1);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/user")
     @HystrixCommand(fallbackMethod = "emptyUserReturn")
     public User getUser(@RequestBody User user) {
-        User user1 = userService.getUser(user);
-        return user1;
+        return userService.getUser(user);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addUser")
