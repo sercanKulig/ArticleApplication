@@ -20,7 +20,9 @@ import java.util.Date;
                 "com.article.services",
                 "com.article.dao",
                 "com.article.aspect",
-                "com.article.schedular"
+                "com.article.schedular",
+                "com.article.repository",
+                "com.article.config"
         }
 )
 @EntityScan(
