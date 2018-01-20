@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 @SpringBootApplication(
         scanBasePackages={
@@ -51,12 +52,24 @@ public class MainController  implements CommandLineRunner {
 
     public void run(String... strings) {
         //save role
-        userService.addRole(new Role("ADMIN"));
-        userService.addRole(new Role("USER"));
+        Stream.of(
+                new Role("ADMIN"),
+                new Role("USER")
+        ).forEach(
+                role ->  userService.addRole(role)
+        );
         // save user
-        userService.addUser(new User("admin","administrator","admin","123456",null,1,1));
+        Stream.of(
+                new User("admin","administrator","admin","123456",null,1,1)
+        ).forEach(
+                user -> userService.addUser(user)
+        );
         // save article
-        articleService.addArticle(new Article("article","articleCategory",new Date()));
+        Stream.of(
+                new Article("article","articleCategory",new Date())
+        ).forEach(
+                article -> articleService.addArticle(article)
+        );
     }
 
 }
