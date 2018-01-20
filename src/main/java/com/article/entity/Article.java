@@ -1,11 +1,21 @@
 package com.article.entity;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="article")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,45 +34,9 @@ public class Article implements Serializable {
     @Column(name="date_creation")
     private Date dateCreation;
 
-    public Article() {
-    }
-
-    public Article(long articleId, String title, String category, Date dateCreation) {
-        this.articleId = articleId;
-        this.title = title;
-        this.category = category;
-        this.dateCreation = dateCreation;
-    }
-
-
     public Article(String title, String category, Date dateCreation) {
         this.title = title;
         this.category = category;
-        this.dateCreation = dateCreation;
-    }
-
-    public long getArticleId() {
-        return articleId;
-    }
-    public void setArticleId(long articleId) {
-        this.articleId = articleId;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getCategory() {
-        return category;
-    }
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-    public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
 }
