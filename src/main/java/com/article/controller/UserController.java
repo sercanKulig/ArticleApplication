@@ -1,8 +1,7 @@
 package com.article.controller;
 
-import com.article.entity.User;
-import com.article.services.UserService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.article.entity.UserM;
+import com.article.repository.UserRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import java.util.List;
 public class UserController {
 
 
-    private UserService userService;
+/*    private UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -47,6 +46,51 @@ public class UserController {
     @RequestMapping("/helloUser")
     public String helloUser() {
         return "Hello World";
+    }*/
+
+    private UserRepositoryMongo repositoryMongo;
+
+    @Autowired
+    public UserController(UserRepositoryMongo repositoryMongo) {
+        this.repositoryMongo = repositoryMongo;
+    }
+
+    @GetMapping("/users")
+    public List<UserM> getUsers() {
+        return repositoryMongo.findAll();
+    }
+
+    @GetMapping("/deleteUsers")
+    public void deleteUsers() {
+        repositoryMongo.deleteAll();
+    }
+
+    @RequestMapping("/user/{id}")
+    public UserM getUserM(@PathVariable int id){
+        return repositoryMongo.findByUserId(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteUser/{id}")
+    public void deleteUserM(@PathVariable int id){
+        repositoryMongo.deleteByUserId(id);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveUser")
+    public List<UserM> saveUserM(@RequestBody UserM userM){
+        repositoryMongo.save(userM);
+        return repositoryMongo.findAll();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/updateUser")
+    public List<UserM> updateUserM(@RequestBody UserM userM){
+        repositoryMongo.save(userM);
+        return repositoryMongo.findAll();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/checkUser")
+    public boolean checkUser(@RequestBody UserM userM) {
+        return repositoryMongo.existsByEmailAndPassword(userM.getEmail(),userM.getPassword());
     }
 
 }
