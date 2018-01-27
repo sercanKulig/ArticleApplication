@@ -5,6 +5,7 @@ import com.article.enumerations.ResponseMessageStatus;
 import com.article.model.dto.UserDTO;
 import com.article.services.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import io.reactivex.Observable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,13 @@ public class UserController {
     @RequestMapping("/helloUser")
     public String helloUser() {
         return "Hello World";
+    }
+
+    @RequestMapping("/helloUsers")
+    public Observable<String> hellow() {
+        return Observable.just(
+            "hellow"
+        );
     }
 
 }
