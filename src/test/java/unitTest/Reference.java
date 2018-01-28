@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class Reference {
+
+    protected static MockMvc mockMvc;
 
     public static String jsonObjectCreator(final Object object){
         try {

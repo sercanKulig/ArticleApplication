@@ -78,7 +78,6 @@ public class MainController implements CommandLineRunner {
         ).forEach(
                 article -> articleService.addArticle(article)
         );
-        fileLineRead();
     }
 
     public void filterExample() {
