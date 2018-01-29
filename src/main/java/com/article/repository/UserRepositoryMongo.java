@@ -1,6 +1,5 @@
 package com.article.repository;
 
-import com.article.entity.Article;
 import com.article.entity.UserM;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
