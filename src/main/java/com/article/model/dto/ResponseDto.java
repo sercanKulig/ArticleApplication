@@ -1,7 +1,9 @@
 package com.article.model.dto;
 
 import com.article.enumerations.ResponseMessageStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDto {
     private Boolean status;
     private String message;

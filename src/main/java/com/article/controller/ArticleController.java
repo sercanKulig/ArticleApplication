@@ -53,7 +53,7 @@ public class ArticleController {
 
     @RequestMapping("/hello")
     public ResponseDto returnDto() {
-        return new ResponseDto(true,"naber", ResponseMessageStatus.SUCCESS,"birşeyler");
+        return new ResponseDto(true,"naber", ResponseMessageStatus.SUCCESS);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/articleDelete")

@@ -34,7 +34,7 @@ public class UserController {
     @RequestMapping("/usersDTO")
     public UserDTO getUsersDTO() {
         List<User> user1 = userService.getUserList();
-        return new UserDTO(true,"a",ResponseMessageStatus.SUCCESS,user1);
+        return new UserDTO(true, "a", ResponseMessageStatus.SUCCESS, user1);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/user")
@@ -60,7 +60,7 @@ public class UserController {
     @RequestMapping("/helloUsers")
     public Observable<String> hellow() {
         return Observable.just(
-            "hellow"
+                "hellow"
         );
     }
 

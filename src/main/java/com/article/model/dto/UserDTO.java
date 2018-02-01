@@ -2,9 +2,11 @@ package com.article.model.dto;
 
 import com.article.entity.User;
 import com.article.enumerations.ResponseMessageStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO extends ResponseDto {
 
     private List<User> users;
