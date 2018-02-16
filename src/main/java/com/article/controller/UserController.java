@@ -3,6 +3,7 @@ package com.article.controller;
 import com.article.entity.User;
 import com.article.services.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.web.bind.annotation.*;
@@ -23,18 +24,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/users")
+    @ApiOperation(value = "Return Users", response = User.class)
+    @RequestMapping(method = RequestMethod.GET, value = "/users")
     public List<User> getUsers() {
         return userService.getUserList();
     }
 
+    @ApiOperation(value = "Return User", response = User.class)
     @RequestMapping(method = RequestMethod.POST, value = "/user")
     @HystrixCommand(fallbackMethod = "emptyUserReturn")
     public User getUser(@RequestBody User user) {
-        User user1 = userService.getUser(user);
-        return user1;
+        return userService.getUser(user);
     }
 
+    @ApiOperation(value = "Add User")
     @RequestMapping(method = RequestMethod.POST, value = "/addUser")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);

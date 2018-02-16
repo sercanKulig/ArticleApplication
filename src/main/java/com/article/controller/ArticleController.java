@@ -1,6 +1,7 @@
 package com.article.controller;
 
 import com.article.entity.Article;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.article.services.ArticleServiceInterface;
@@ -19,12 +20,14 @@ public class ArticleController {
         this.articleService = articleServiceInterface;
     }
 
-    @RequestMapping("/articles")
+    @ApiOperation(value = "Returns Articles", response = Article.class)
+    @RequestMapping(method = RequestMethod.GET, value = "/articles")
     public List<Article> getArticles() {
         return articleService.getAllArticleList();
     }
 
-    @RequestMapping("/article/{id}")
+    @ApiOperation(value = "Returns Article", response = Article.class)
+    @RequestMapping(method = RequestMethod.GET, value = "/article/{id}")
     public Article getArticle(@PathVariable long id){
         return articleService.getArticle(id);
     }
@@ -34,11 +37,13 @@ public class ArticleController {
         return articleService.getArticle(article.getArticleId());
     }*/
 
+    @ApiOperation(value = "Add Article")
     @RequestMapping(method = RequestMethod.POST, value = "/addArticle")
     public void addArticle(@RequestBody Article article) {
         articleService.addArticle(article);
     }
 
+    @ApiOperation(value = "Update Article")
     @RequestMapping(method = RequestMethod.PUT, value = "/articleUpdate/{id}")
     public void updateArticle(@RequestBody Article article, @PathVariable long id) {
         articleService.updateArticle(article, id);
@@ -49,6 +54,7 @@ public class ArticleController {
 //        articleService.deleteArticle(id);
 //    }
 
+    @ApiOperation(value = "Delete Article")
     @RequestMapping(method = RequestMethod.POST, value = "/articleDelete")
     public void deleteArticle(@RequestBody Article article) {
         articleService.deleteArticle(article.getArticleId());
