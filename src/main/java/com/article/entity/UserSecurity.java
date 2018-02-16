@@ -1,15 +1,22 @@
 package com.article.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Scope(value = "singleton")
 @Table(name = "user_security")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserSecurity implements Serializable {
 
 
@@ -20,10 +27,6 @@ public class UserSecurity implements Serializable {
     private User user;
 
 
-    public UserSecurity() {
-    }
-
-
     @Id
     @Column(name = "user_security_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,26 +34,9 @@ public class UserSecurity implements Serializable {
         return userSecurityId;
     }
 
-    public void setUserSecurityId(int userSecurityId) {
-        this.userSecurityId = userSecurityId;
-    }
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     @Column(name = "session_start")
     public Date getSessionStart() {
         return sessionStart;
-    }
-
-    public void setSessionStart(Date sessionStart) {
-        this.sessionStart = sessionStart;
     }
 
     @Column(name = "session_end")
@@ -58,16 +44,8 @@ public class UserSecurity implements Serializable {
         return sessionEnd;
     }
 
-    public void setSessionEnd(Date sessionEnd) {
-        this.sessionEnd = sessionEnd;
-    }
-
     @OneToOne(mappedBy = "userSecurity")
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

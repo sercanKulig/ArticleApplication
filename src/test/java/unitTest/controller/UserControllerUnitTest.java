@@ -28,8 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerUnitTest extends Reference {
 
-    private MockMvc mockMvc;
-
     @Mock
     private UserService userService;
 
@@ -51,7 +49,7 @@ public class UserControllerUnitTest extends Reference {
 
         when(userService.getUserList()).thenReturn(users);
 
-        this.mockMvc
+        mockMvc
                 .perform(get("/api/users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -62,12 +60,12 @@ public class UserControllerUnitTest extends Reference {
 
     @Test
     public void getUser() throws Exception {
-        User user = new User(1, "admin", "administrator", "admin", "123456", null, 1, 1, null,null);
+        User user = new User(1, "admin", "administrator", "admin", "123456", null, 1, 1, null, null);
 
         when(userService.getUser(any(User.class))).thenReturn(user);
-        this.mockMvc.perform(
+        mockMvc.perform(
                 post("/api/user")
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+                        .contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isOk())
                 .andReturn();
         verify(userService, times(1)).getUser(any(User.class));

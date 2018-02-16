@@ -1,12 +1,20 @@
 package com.article.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
     private int userId;
     private String name;
@@ -24,10 +32,6 @@ public class User implements Serializable {
     private Role role;
     private UserSecurity userSecurity;
 
-    public User(){
-
-    }
-
     public User(String name, String surname, String username, String password, String email, int active, int roleId) {
         this.name = name;
         this.surname = surname;
@@ -36,19 +40,6 @@ public class User implements Serializable {
         this.email = email;
         this.active = active;
         this.roleId = roleId;
-    }
-
-    public User(int userId, String name, String surname, String username, String password, String email, int roleId, int active, Role role, UserSecurity userSecurity) {
-        this.userId = userId;
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.roleId = roleId;
-        this.active = active;
-        this.role = role;
-        this.userSecurity = userSecurity;
     }
 
     public User(int userId, String name, String surname, String username, String password, String email, int roleId, int active) {
@@ -78,60 +69,6 @@ public class User implements Serializable {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-/*        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);*/
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_security_id")
     @JsonIgnore
@@ -139,27 +76,14 @@ public class User implements Serializable {
         return userSecurity;
     }
 
-    public void setUserSecurity(UserSecurity userSecurity) {
-        this.userSecurity = userSecurity;
-    }
-
     @Column(name = "role_id")
     public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-
     @JsonIgnore
     @Transient
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }
