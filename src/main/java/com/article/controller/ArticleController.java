@@ -1,6 +1,7 @@
 package com.article.controller;
 
 import com.article.entity.Article;
+import com.article.model.dto.ArticleDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +23,13 @@ public class ArticleController {
 
     @ApiOperation(value = "Returns Articles", response = Article.class)
     @RequestMapping(method = RequestMethod.GET, value = "/articles")
-    public List<Article> getArticles() {
+    public ArticleDTO getArticles() {
         return articleService.getAllArticleList();
     }
 
     @ApiOperation(value = "Returns Article", response = Article.class)
     @RequestMapping(method = RequestMethod.GET, value = "/article/{id}")
-    public Article getArticle(@PathVariable long id){
+    public ArticleDTO getArticle(@PathVariable long id){
         return articleService.getArticle(id);
     }
 
@@ -39,8 +40,8 @@ public class ArticleController {
 
     @ApiOperation(value = "Add Article")
     @RequestMapping(method = RequestMethod.POST, value = "/addArticle")
-    public void addArticle(@RequestBody Article article) {
-        articleService.addArticle(article);
+    public ArticleDTO addArticle(@RequestBody Article article) {
+        return articleService.addArticle(article);
     }
 
     @ApiOperation(value = "Update Article")

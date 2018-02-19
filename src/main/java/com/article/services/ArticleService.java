@@ -2,6 +2,8 @@ package com.article.services;
 
 import com.article.dao.ArticleDAO;
 import com.article.entity.Article;
+import com.article.enumerations.ResponseMessageStatus;
+import com.article.model.dto.ArticleDTO;
 import com.article.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,41 +25,52 @@ public class ArticleService implements ArticleServiceInterface {
 
 
     @Override
-    public List<Article> getAllArticleList() {
-        List<Article> articles = new ArrayList<>();
-        articleRepository.findAll()
-                .forEach(articles::add);
-        return articles;
+    public ArticleDTO getAllArticleList() {
+        try {
+            List<Article> articles = new ArrayList<>();
+            articleRepository.findAll()
+                    .forEach(articles::add);
+            return new ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, articles);
+        } catch (Throwable throwable) {
+            return new ArticleDTO(false,"ArticleDAO - getAllArticleList", ResponseMessageStatus.ERROR);
+        }
+
 //        return articleDAO.getAllArticleList();
     }
 
     @Override
-    public Article getArticle(long id) {
+    public ArticleDTO getArticle(long id) {
         return articleDAO.getArticle(id);
     }
 
     @Override
-    public synchronized boolean addArticle(Article article) {
-        if (articleDAO.articleExists(article)) {
-            return false;
+    public synchronized ArticleDTO addArticle(Article article) {
+        ArticleDTO articleDTO = articleDAO.articleExists(article);
+        if (!articleDTO.getStatus()) {
+            return articleDTO;
         } else {
-            articleDAO.addArticle(article);
-            return true;
+            return articleDAO.addArticle(article);
         }
     }
 
     @Override
-    public boolean articleExist(Article article){
-        return articleRepository.findOne(article.getArticleId()) != null;
+    public ArticleDTO articleExist(Article article){
+        try {
+            return articleRepository.findOne(article.getArticleId()) != null ?
+                    new ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS) :
+                    new ArticleDTO(false,"ArticleDAO - getAllArticleList", ResponseMessageStatus.ERROR);
+        } catch (Throwable throwable) {
+            return new ArticleDTO(false,"ArticleDAO - getAllArticleList", ResponseMessageStatus.ERROR);
+        }
     }
 
     @Override
-    public boolean updateArticle(Article article, long id) {
+    public ArticleDTO updateArticle(Article article, long id) {
         return articleDAO.updateArticle(article, id);
     }
 
     @Override
-    public boolean deleteArticle(long id) {
+    public ArticleDTO deleteArticle(long id) {
         return articleDAO.deleteArticle(id);
     }
 }

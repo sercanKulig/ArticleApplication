@@ -1,14 +1,13 @@
 package com.article.dao;
 
 import com.article.entity.Article;
-
-import java.util.List;
+import com.article.model.dto.ArticleDTO;
 
 public interface ArticleDAO {
-    List<Article> getAllArticleList();
-    Article getArticle(long id);
-    void addArticle(Article article);
-    boolean updateArticle(Article article, long id);
-    boolean deleteArticle(long id);
-    boolean articleExists(Article article);
+    ArticleDTO getAllArticleList();
+    ArticleDTO getArticle(long id);
+    ArticleDTO addArticle(Article article);
+    ArticleDTO updateArticle(Article article, long id);
+    ArticleDTO deleteArticle(long id);
+    ArticleDTO articleExists(Article article);
 }

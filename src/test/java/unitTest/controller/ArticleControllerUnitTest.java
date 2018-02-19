@@ -2,6 +2,8 @@ package unitTest.controller;
 
 import com.article.controller.ArticleController;
 import com.article.entity.Article;
+import com.article.enumerations.ResponseMessageStatus;
+import com.article.model.dto.ArticleDTO;
 import com.article.services.ArticleService;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +51,8 @@ public class ArticleControllerUnitTest extends Reference {
     public void getArticles() throws Exception {
         List<Article> articles = Collections.singletonList(
                 new Article("article","articleCategory",new Date()));
-        when(articleService.getAllArticleList()).thenReturn(articles);
+        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, articles);
+        when(articleService.getAllArticleList()).thenReturn(articleDTO);
         mockMvc
                 .perform(get("/api/articles"))
                 .andExpect(status().isOk())
@@ -62,8 +65,8 @@ public class ArticleControllerUnitTest extends Reference {
     @Test
     public void getArticle() throws Exception {
         Article article = new Article(1, "article", "articleCategory",new Date());
-
-        when(articleService.getArticle(article.getArticleId())).thenReturn(article);
+        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, article);
+        when(articleService.getArticle(article.getArticleId())).thenReturn(articleDTO);
         mockMvc.perform(get("/api/article/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -76,8 +79,8 @@ public class ArticleControllerUnitTest extends Reference {
     @Test
     public void updateArticle() throws Exception {
         Article article = new Article(1, "article", "articleCategory",new Date());
-
-        when(articleService.updateArticle(article,1)).thenReturn(true);
+        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, article);
+        when(articleService.updateArticle(article,1)).thenReturn(articleDTO);
         mockMvc.perform(get("/api/article/{id}", 1))
                 .andExpect(status().isOk());
         verify(articleService, times(1)).getArticle(1);
@@ -87,8 +90,10 @@ public class ArticleControllerUnitTest extends Reference {
     @Test
     public void addArticle() throws Exception {
         Article article = new Article(1,"article", "articleCategory",new Date());
-        when(articleService.articleExist(article)).thenReturn(true);
-        when(articleService.addArticle(any(Article.class))).thenReturn(true);
+        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, article);
+        ArticleDTO articleDTO2 = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS);
+        when(articleService.articleExist(article)).thenReturn(articleDTO);
+        when(articleService.addArticle(any(Article.class))).thenReturn(articleDTO2);
         mockMvc.perform(
                 post("/api/addArticle")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +106,8 @@ public class ArticleControllerUnitTest extends Reference {
     @Test
     public void deleteArticle() throws Exception {
         Article article = new Article(1,"article", "articleCategory",new Date());
-        when(articleService.deleteArticle(article.getArticleId())).thenReturn(true);
+        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS);
+        when(articleService.deleteArticle(article.getArticleId())).thenReturn(articleDTO);
         mockMvc.perform(
                 post("/api/articleDelete")
                         .contentType(MediaType.APPLICATION_JSON)
