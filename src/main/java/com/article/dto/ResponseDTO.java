@@ -1,4 +1,4 @@
-package com.article.model.dto;
+package com.article.dto;
 
 import com.article.enumerations.ResponseMessageStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;

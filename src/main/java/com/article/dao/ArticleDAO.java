@@ -1,7 +1,7 @@
 package com.article.dao;
 
 import com.article.entity.Article;
-import com.article.model.dto.ArticleDTO;
+import com.article.dto.ArticleDTO;
 
 public interface ArticleDAO {
     ArticleDTO getAllArticleList();

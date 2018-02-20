@@ -3,6 +3,7 @@ package integrationTest;
 import com.article.controller.ArticleController;
 import com.article.controller.MainController;
 import com.article.entity.Article;
+import com.article.repository.UserRepository;
 import com.article.services.ArticleService;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +11,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import unitTest.Reference;
 
@@ -39,34 +43,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application.properties")
 public class ArticleControllerIntegrationTest extends Reference {
 
-    @InjectMocks
-    private ArticleController articleController;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(articleController)
-                .build();
-    }
+    @Autowired
+    MockMvc mockMvc;
 
     @Test
     public void getArticles() throws Exception {
         mockMvc
                 .perform(get("/api/articles"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
     public void getArticle() throws Exception {
-        Article article = new Article(1, "article", "articleCategory",new Date());
         mockMvc.perform(get("/api/article/{id}", 1))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.title", is(article.getTitle())))
-                .andExpect(jsonPath("$.category", is(article.getCategory())));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
@@ -78,21 +70,19 @@ public class ArticleControllerIntegrationTest extends Reference {
 
     @Test
     public void addArticle() throws Exception {
-        Article article = new Article(1,"article", "articleCategory",new Date());
         mockMvc.perform(
                 post("/api/addArticle")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(article)))
+                        .content(asJsonString(new Article("article", "articleCategory",new Date()))))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleteArticle() throws Exception {
-        Article article = new Article(1,"article", "articleCategory",new Date());
         mockMvc.perform(
                 post("/api/articleDelete")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(article)))
+                        .content(asJsonString(new Article(1,"article", "articleCategory",new Date()))))
                 .andExpect(status().isOk());
     }
 }

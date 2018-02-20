@@ -56,7 +56,7 @@ public class MainController  implements CommandLineRunner {
         userService.addRole(new Role("ADMIN"));
         userService.addRole(new Role("USER"));
         // save user
-        userService.addUser(new User("admin","administrator","admin","123456",null,1,1));
+        userService.addUser(new User("admin","administrator","admin","123456","admin@gmail.com",1,1));
         // save article
         articleService.addArticle(new Article("article","articleCategory",new Date()));
     }

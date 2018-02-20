@@ -3,7 +3,7 @@ package com.article.services;
 import com.article.dao.ArticleDAO;
 import com.article.entity.Article;
 import com.article.enumerations.ResponseMessageStatus;
-import com.article.model.dto.ArticleDTO;
+import com.article.dto.ArticleDTO;
 import com.article.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class ArticleService implements ArticleServiceInterface {
     @Override
     public synchronized ArticleDTO addArticle(Article article) {
         ArticleDTO articleDTO = articleDAO.articleExists(article);
-        if (!articleDTO.getStatus()) {
+        if (articleDTO.getStatus()) {
             return articleDTO;
         } else {
             return articleDAO.addArticle(article);

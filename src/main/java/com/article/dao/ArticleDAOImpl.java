@@ -2,7 +2,7 @@ package com.article.dao;
 
 import com.article.entity.Article;
 import com.article.enumerations.ResponseMessageStatus;
-import com.article.model.dto.ArticleDTO;
+import com.article.dto.ArticleDTO;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -64,9 +64,8 @@ public class ArticleDAOImpl implements ArticleDAO {
 
     @Override
     public ArticleDTO deleteArticle(long id) {
-        entityManager.remove(getArticle(id));
         try{
-            entityManager.remove(getArticle(id));
+            entityManager.remove(getArticle(id).getArticle());
             return new ArticleDTO(true,"ArticleDAO - updateArticle", ResponseMessageStatus.SUCCESS);
         }catch (Throwable throwable) {
             return new ArticleDTO(false,"ArticleDAO - updateArticle", ResponseMessageStatus.ERROR);

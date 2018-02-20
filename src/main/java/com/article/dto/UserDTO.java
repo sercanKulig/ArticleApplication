@@ -1,4 +1,4 @@
-package com.article.model.dto;
+package com.article.dto;
 
 import com.article.entity.User;
 import com.article.enumerations.ResponseMessageStatus;

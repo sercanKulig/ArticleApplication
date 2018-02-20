@@ -1,13 +1,11 @@
 package com.article.controller;
 
 import com.article.entity.Article;
-import com.article.model.dto.ArticleDTO;
+import com.article.dto.ArticleDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.article.services.ArticleServiceInterface;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")

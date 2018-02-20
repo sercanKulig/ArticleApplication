@@ -1,9 +1,7 @@
 package com.article.services;
 
 import com.article.entity.Article;
-import com.article.model.dto.ArticleDTO;
-
-import java.util.List;
+import com.article.dto.ArticleDTO;
 
 public interface ArticleServiceInterface {
     ArticleDTO getAllArticleList();

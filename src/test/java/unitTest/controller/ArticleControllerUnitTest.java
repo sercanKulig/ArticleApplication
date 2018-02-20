@@ -3,7 +3,7 @@ package unitTest.controller;
 import com.article.controller.ArticleController;
 import com.article.entity.Article;
 import com.article.enumerations.ResponseMessageStatus;
-import com.article.model.dto.ArticleDTO;
+import com.article.dto.ArticleDTO;
 import com.article.services.ArticleService;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import unitTest.Reference;
 
@@ -56,7 +55,7 @@ public class ArticleControllerUnitTest extends Reference {
         mockMvc
                 .perform(get("/api/articles"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.status", is(articleDTO.getStatus())))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
         verify(articleService, times(1)).getAllArticleList();
         verifyNoMoreInteractions(articleService);
@@ -70,8 +69,8 @@ public class ArticleControllerUnitTest extends Reference {
         mockMvc.perform(get("/api/article/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.title", is(article.getTitle())))
-                .andExpect(jsonPath("$.category", is(article.getCategory())));
+                .andExpect(jsonPath("$.article.title", is(article.getTitle())))
+                .andExpect(jsonPath("$.status", is(articleDTO.getStatus())));
         verify(articleService, times(1)).getArticle(1);
         verifyNoMoreInteractions(articleService);
     }
