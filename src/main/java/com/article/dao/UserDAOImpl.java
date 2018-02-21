@@ -1,7 +1,7 @@
 package com.article.dao;
 
-import com.article.entity.Role;
-import com.article.entity.User;
+import com.article.entity.user.Role;
+import com.article.entity.user.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Transactional
 @Repository("userDAO")
@@ -54,32 +53,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean roleExist(Role role) {
-        int count = entityManager.createQuery(
-                "FROM Role as role " +
-                        "WHERE role.role = :role")
-                .setParameter("role", role.getRole())
-                .getResultList().size();
-        return count > 0;
-    }
-
-    @Override
     public boolean userExists(User user) {
         int count = entityManager.createQuery(
                 "FROM User as usr " +
                         "WHERE usr.username = :username " +
-                        "AND usr.password = :password " +
-                        "AND usr.roleId = :roleId")
+                        "AND usr.password = :password ")
                 .setParameter("username", user.getUsername())
                 .setParameter("password", user.getPassword())
-                .setParameter("roleId", user.getRoleId())
                 .getResultList().size();
         return count > 0;
-    }
-
-
-    @Override
-    public void addRole(Role role) {
-        entityManager.persist(role);
     }
 }

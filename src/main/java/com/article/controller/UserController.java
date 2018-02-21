@@ -1,6 +1,6 @@
 package com.article.controller;
 
-import com.article.entity.User;
+import com.article.entity.user.User;
 import com.article.services.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,8 @@
 package unitTest.controller;
 
 import com.article.controller.UserController;
-import com.article.entity.User;
+import com.article.entity.user.Role;
+import com.article.entity.user.User;
 import com.article.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import unitTest.Reference;
 
@@ -20,10 +20,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerUnitTest extends Reference {
@@ -45,7 +44,7 @@ public class UserControllerUnitTest extends Reference {
     @Test
     public void getUsers() throws Exception {
         List<User> users = Collections.singletonList(
-                new User("admin", "admin", "admin", "123456", null, 1, 1));
+                new User("admin@gmail.com", "123456", Role.USER, "admin", true));
 
         when(userService.getUserList()).thenReturn(users);
 
@@ -60,7 +59,7 @@ public class UserControllerUnitTest extends Reference {
 
     @Test
     public void getUser() throws Exception {
-        User user = new User(1, "admin", "administrator", "admin", "123456", null, 1, 1, null, null);
+        User user = new User("1", "admin@gmail.com", "123456", Role.USER, "admin", true);
 
         when(userService.getUser(any(User.class))).thenReturn(user);
         mockMvc.perform(
@@ -74,7 +73,7 @@ public class UserControllerUnitTest extends Reference {
 
     @Test
     public void addUser() throws Exception {
-        User user = new User("admin", "admin", "admin", "123456", null, 1, 1);
+        User user = new User("admin@gmail.com", "123456", Role.USER, "admin", true);
         when(userService.userExists(any(User.class))).thenReturn(false);
         when(userService.addUser(any(User.class))).thenReturn(true);
         mockMvc.perform(

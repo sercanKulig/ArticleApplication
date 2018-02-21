@@ -1,4 +1,6 @@
 package com.article.entity.user;
 
-public class Role {
+public enum Role {
+    USER, ADMIN
 }
+

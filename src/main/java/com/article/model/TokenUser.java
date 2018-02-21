@@ -1,6 +1,6 @@
-package com.article.config.securityIdentity;
+package com.article.model;
 
-import com.article.entity.User;
+import com.article.entity.user.User;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 public class TokenUser extends org.springframework.security.core.userdetails.User {

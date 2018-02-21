@@ -1,10 +1,8 @@
 package com.article.services;
 
 import com.article.dao.UserDAO;
-import com.article.entity.Role;
-import com.article.entity.User;
+import com.article.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,19 +34,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public synchronized boolean addRole(Role role) {
-        if(userDAO.roleExist(role)) {
-            return false;
-        } else {
-            userDAO.addRole(role);
-            return true;
-        }
-    }
-
     public synchronized boolean userExists(User user) {
         if(!user.getPassword().isEmpty() || user.getPassword() == null
-                && !user.getUsername().isEmpty() || user.getUsername() == null
-                && user.getRoleId() > 0) {
+                && !user.getUsername().isEmpty() || user.getUsername() == null) {
             return userDAO.userExists(user);
         }
         return false;

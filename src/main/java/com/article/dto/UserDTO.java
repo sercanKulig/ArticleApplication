@@ -1,6 +1,6 @@
 package com.article.dto;
 
-import com.article.entity.User;
+import com.article.entity.user.User;
 import com.article.enumerations.ResponseMessageStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

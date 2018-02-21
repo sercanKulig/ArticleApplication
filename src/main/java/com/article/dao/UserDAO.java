@@ -1,7 +1,6 @@
 package com.article.dao;
 
-import com.article.entity.Role;
-import com.article.entity.User;
+import com.article.entity.user.User;
 
 import java.util.List;
 
@@ -11,6 +10,4 @@ public interface UserDAO {
     boolean userExist(User user);
     boolean userExists(User user);
     User getUser(User user);
-    boolean roleExist(Role role);
-    void addRole(Role role);
 }

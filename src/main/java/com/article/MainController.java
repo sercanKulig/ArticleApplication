@@ -1,4 +1,4 @@
-package com.article.controller;
+package com.article;
 
 import com.article.services.ArticleService;
 import com.article.services.UserService;
@@ -10,15 +10,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication(
-        scanBasePackages={
-                "com.article.controller",
-                "com.article.services",
-                "com.article.dao",
-                "com.article.aspect",
-                "com.article.schedular"
-        }
-)
+@SpringBootApplication
 @EntityScan(
         basePackages = {
                 "com.article.entity"
