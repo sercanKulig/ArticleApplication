@@ -14,7 +14,7 @@ public class User {
     @Id
     @Getter
     @Setter
-    private String userId;
+    private Integer userId;
     @Getter
     @Setter
     private String password = "";
@@ -97,22 +97,22 @@ public class User {
     private boolean enableRenewal;
 
     public User() {
-        this("new", "PASSWORD", Role.USER, "new", "new", "new", true, "", "", "", "", "", "", "", "", true, false);
+        this(1, "PASSWORD", Role.USER, "new", "new", "new", "email", true,  "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, String firstName, String lastName, String username) {
-        this(userId, password, Role.USER, firstName, lastName, username, true, "", "", "", "", "", "", "", "", true, false);
+    public User(Integer userId, String password, String firstName, String lastName, String username) {
+        this(userId, password, Role.USER, firstName, lastName, username, "", true, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName, String username) {
-        this(userId, password, role, firstName, lastName, username, true, "", "", "", "", "", "", "", "", true, false);
+    public User(Integer userId, String password, Role role, String firstName, String lastName, String username) {
+        this(userId, password, role, firstName, lastName, username, "", true, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName, boolean isActive, String username) {
-        this(userId, password, role, firstName, lastName, username, isActive, "", "", "", "", "", "", "", "", true, false);
+    public User(Integer userId, String password, Role role, String firstName, String lastName, boolean isActive, String username) {
+        this(userId, password, role, firstName, lastName, username, "", isActive, "", "", "", "", "", "", "", "", true, false);
     }
 
-    public User(String userId, String email, String password, Role role, String username, boolean isActive) {
+    public User(Integer userId, String email, String password, Role role, String username, boolean isActive) {
         this.setUserId(userId);
         this.setEmail(email);
         this.setPassword(password);
@@ -129,11 +129,11 @@ public class User {
         this.setActive(isActive);
     }
 
-    public User(String userId, String password, Role role, String firstName, String lastName, String username, boolean isActive,
+    public User(Integer userId, String password, Role role, String firstName, String lastName, String username, String email, boolean isActive,
                 String company, String phone, String address1, String address2, String country, String postal,
                 String secretQuestion, String secretAnswer, boolean enableRenewal, boolean enableBetaTesting) {
         this.setUserId(userId);
-        this.setEmail(userId);
+        this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
         this.setFirstName(firstName);

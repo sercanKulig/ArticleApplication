@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class SessionItem {
     private String  token;
-    private String  userId;
+    private Integer  userId;
     private String  firstName;
     private String  lastName;
     private String  email;

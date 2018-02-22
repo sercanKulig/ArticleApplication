@@ -59,7 +59,7 @@ public class UserControllerUnitTest extends Reference {
 
     @Test
     public void getUser() throws Exception {
-        User user = new User("1", "admin@gmail.com", "123456", Role.USER, "admin", true);
+        User user = new User(1, "admin@gmail.com", "123456", Role.USER, "admin", true);
 
         when(userService.getUser(any(User.class))).thenReturn(user);
         mockMvc.perform(
