@@ -25,6 +25,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Slf4j
 public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessingFilter {
@@ -83,6 +85,7 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
         respItem.setLastName(tokenUser.getUser().getLastName());
         respItem.setUserId(tokenUser.getUser().getUserId());
         respItem.setEmail(tokenUser.getUser().getEmail());
+        respItem.setRoles(new ArrayList<>(Collections.singletonList(tokenUser.getUser().getRole().toString())));
         respItem.setToken(tokenString);
 
         resp.setResponseMessageStatus(ResponseMessageStatus.SUCCESS);

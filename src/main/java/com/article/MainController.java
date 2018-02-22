@@ -1,5 +1,8 @@
 package com.article;
 
+import com.article.entity.Article;
+import com.article.entity.user.Role;
+import com.article.entity.user.User;
 import com.article.services.ArticleService;
 import com.article.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Date;
 
 @SpringBootApplication
 @EntityScan(
@@ -39,13 +44,11 @@ public class MainController  implements CommandLineRunner {
     }
 
     public void run(String... strings) {
-        //save role
-//        userService.addRole(new Role("ADMIN"));
-//        userService.addRole(new Role("USER"));
 //        // save user
-//        userService.addUser(new User("admin","administrator","admin","123456","admin@gmail.com",1,1));
+        userService.addUser(new User("admin", "admin", Role.USER, "admin", "admin", "admin", true, "", "", "", "", "", "", "", "", true, false));
+
 //        // save article
-//        articleService.addArticle(new Article("article","articleCategory",new Date()));
+        articleService.addArticle(new Article("article","articleCategory",new Date()));
     }
 
 }

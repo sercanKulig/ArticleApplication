@@ -3,7 +3,6 @@ package com.article.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -116,7 +115,7 @@ public class User {
     public User(String userId, String email, String password, Role role, String username, boolean isActive) {
         this.setUserId(userId);
         this.setEmail(email);
-        this.setPassword(new BCryptPasswordEncoder().encode(password));
+        this.setPassword(password);
         this.setRole(role);
         this.setUsername(username);
         this.setActive(isActive);
@@ -124,7 +123,7 @@ public class User {
 
     public User(String email, String password, Role role, String username, boolean isActive) {
         this.setEmail(email);
-        this.setPassword(new BCryptPasswordEncoder().encode(password));
+        this.setPassword(password);
         this.setRole(role);
         this.setUsername(username);
         this.setActive(isActive);
@@ -135,7 +134,7 @@ public class User {
                 String secretQuestion, String secretAnswer, boolean enableRenewal, boolean enableBetaTesting) {
         this.setUserId(userId);
         this.setEmail(userId);
-        this.setPassword(new BCryptPasswordEncoder().encode(password));
+        this.setPassword(password);
         this.setRole(role);
         this.setFirstName(firstName);
         this.setLastName(lastName);
