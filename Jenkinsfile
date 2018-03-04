@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage ('Testing Stage') {
+        stage ('Install Stage') {
             steps {
                 withMaven(maven: 'Maven_3_5_2') {
                     sh 'mvn clean install'
