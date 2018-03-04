@@ -15,8 +15,6 @@ import unitTest.Reference;
 
 import java.util.Date;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -36,14 +34,16 @@ public class ArticleControllerIntegrationTest extends Reference {
     @Test
     public void getArticles() throws Exception {
         mockMvc
-                .perform(get("/api/articles"))
+                .perform(get("/api/articles")
+                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
     public void getArticle() throws Exception {
-        mockMvc.perform(get("/api/article/{id}", 1))
+        mockMvc.perform(get("/api/article/{id}", 1)
+                .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
@@ -51,7 +51,8 @@ public class ArticleControllerIntegrationTest extends Reference {
     @Test
     public void updateArticle() throws Exception {
 
-        mockMvc.perform(get("/api/article/{id}", 1))
+        mockMvc.perform(get("/api/article/{id}", 1)
+                .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
                 .andExpect(status().isOk());
     }
 
@@ -60,7 +61,8 @@ public class ArticleControllerIntegrationTest extends Reference {
         mockMvc.perform(
                 post("/api/addArticle")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(new Article("article", "articleCategory",new Date()))))
+                        .content(asJsonString(new Article("article", "articleCategory",new Date())))
+                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
                 .andExpect(status().isOk());
     }
 
@@ -69,7 +71,8 @@ public class ArticleControllerIntegrationTest extends Reference {
         mockMvc.perform(
                 post("/api/articleDelete")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(new Article(1,"article", "articleCategory",new Date()))))
+                        .content(asJsonString(new Article(1,"article", "articleCategory",new Date())))
+                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
                 .andExpect(status().isOk());
     }
 }
