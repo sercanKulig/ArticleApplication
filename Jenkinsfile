@@ -29,10 +29,6 @@ pipeline {
             steps {
                 withMaven(maven: 'Maven_3_5_2') {
                     bat 'mvn clean install'
-
-                    def pom = readMavenPom file:'pom.xml'
-                    print pom.version
-                    env.version = pom.version
                 }
             }
         }
