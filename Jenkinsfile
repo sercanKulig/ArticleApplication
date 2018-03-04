@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage ('Checkout') {
+        stage ('Checkout Stage') {
             steps {
                 git url: 'https://github.com/sercanKulig/ArticleApplication.git', branch: 'master'
             }
@@ -26,6 +26,22 @@ pipeline {
         }
 
         stage ('Install Stage') {
+            steps {
+                withMaven(maven: 'Maven_3_5_2') {
+                    bat 'mvn clean install'
+                }
+            }
+        }
+
+        stage ('Docker Image Stage') {
+            steps {
+                withMaven(maven: 'Maven_3_5_2') {
+                    bat 'mvn clean install'
+                }
+            }
+        }
+
+        stage ('Docker Run Stage') {
             steps {
                 withMaven(maven: 'Maven_3_5_2') {
                     bat 'mvn clean install'

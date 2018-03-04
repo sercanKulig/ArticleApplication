@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import unitTest.Reference;
 
 import java.util.Date;
@@ -33,46 +35,107 @@ public class ArticleControllerIntegrationTest extends Reference {
 
     @Test
     public void getArticles() throws Exception {
+        String username = "admin";
+        String password = "123456";
+
+        String body = "{\"username\":\"" + username + "\", \"password\":\""
+                + password + "\"}";
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .content(body))
+                .andExpect(status().isOk()).andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        String token = response.substring(104,252);
+
         mockMvc
                 .perform(get("/api/articles")
-                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
+                        .header("Authorization",token))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
     public void getArticle() throws Exception {
+        String username = "admin";
+        String password = "123456";
+
+        String body = "{\"username\":\"" + username + "\", \"password\":\""
+                + password + "\"}";
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .content(body))
+                .andExpect(status().isOk()).andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        String token = response.substring(104,252);
+
         mockMvc.perform(get("/api/article/{id}", 1)
-                .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
+                .header("Authorization",token))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
     public void updateArticle() throws Exception {
+        String username = "admin";
+        String password = "123456";
 
+        String body = "{\"username\":\"" + username + "\", \"password\":\""
+                + password + "\"}";
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .content(body))
+                .andExpect(status().isOk()).andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        String token = response.substring(104,252);
         mockMvc.perform(get("/api/article/{id}", 1)
-                .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
+                .header("Authorization",token))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void addArticle() throws Exception {
+        String username = "admin";
+        String password = "123456";
+
+        String body = "{\"username\":\"" + username + "\", \"password\":\""
+                + password + "\"}";
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .content(body))
+                .andExpect(status().isOk()).andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        String token = response.substring(104,252);
         mockMvc.perform(
                 post("/api/addArticle")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(new Article("article", "articleCategory",new Date())))
-                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
+                        .header("Authorization",token))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleteArticle() throws Exception {
+        String username = "admin";
+        String password = "123456";
+
+        String body = "{\"username\":\"" + username + "\", \"password\":\""
+                + password + "\"}";
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/session")
+                .content(body))
+                .andExpect(status().isOk()).andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        String token = response.substring(104,252);
         mockMvc.perform(
                 post("/api/articleDelete")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(new Article(1,"article", "articleCategory",new Date())))
-                        .header("Authorization","eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjAxOTg5ODMsInN1YiI6ImFkbWluYWRtaW4iLCJ1c2VySWQiOjEsInJvbGUiOiJVU0VSIn0.bqsfSXWlTtkcVSi3WBCgxSFXojN0OTz481b8lEFwLPw"))
+                        .header("Authorization",token))
                 .andExpect(status().isOk());
     }
 }
