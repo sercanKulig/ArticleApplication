@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 @EntityScan(
@@ -45,10 +46,34 @@ public class MainController  implements CommandLineRunner {
 
     public void run(String... strings) {
 //        // save user
-        userService.addUser(new User(1, "admin", Role.USER, "admin", "admin", "admin", "email", true, "", "", "", "", "", "", "", "", true, false));
+        userService.addUser(new User(1, "123456", Role.USER, "admin", "admin", "admin", "email", true, "", "", "", "", "", "", "", "", true, false));
 
 //        // save article
-        articleService.addArticle(new Article("article","articleCategory",new Date()));
+        Stream.of(
+            new Article("article_1","articleCategory",new Date()),
+            new Article("article_2","articleCategory",new Date()),
+            new Article("article_3","articleCategory",new Date()),
+            new Article("article_4","articleCategory",new Date()),
+            new Article("article_5","articleCategory",new Date()),
+            new Article("article_6","articleCategory",new Date()),
+            new Article("article_7","articleCategory",new Date()),
+            new Article("article_8","articleCategory",new Date()),
+            new Article("article_9","articleCategory",new Date()),
+            new Article("article_10","articleCategory",new Date()),
+            new Article("article_11","articleCategory",new Date()),
+            new Article("article_12","articleCategory",new Date()),
+            new Article("article_13","articleCategory",new Date()),
+            new Article("article_14","articleCategory",new Date()),
+            new Article("article_15","articleCategory",new Date()),
+            new Article("article_16","articleCategory",new Date()),
+            new Article("article_17","articleCategory",new Date()),
+            new Article("article_18","articleCategory",new Date()),
+            new Article("article_19","articleCategory",new Date()),
+            new Article("article_20","articleCategory",new Date()),
+            new Article("article_21","articleCategory",new Date())
+        ).forEach(
+                article -> articleService.addArticle(article)
+        );
     }
 
 }
