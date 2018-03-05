@@ -45,7 +45,7 @@ pipeline {
         stage ('Docker Run Stage') {
             steps {
                 script {
-                    powershell 'docker restart article-application .'
+                    powershell 'docker restart article-application'
                 }
             }
         }
