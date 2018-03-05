@@ -35,14 +35,18 @@ pipeline {
 
         stage ('Docker Image Stage') {
             steps {
-                docker.build("-f Dockerfile -t article-application .")
+                script {
+                    docker.build("-f Dockerfile -t article-application .")
+                }
             }
         }
 
         stage ('Docker Run Stage') {
             steps {
-                docker.stop("article-application")
-                docker.run("-p 9090:9090 --name article-application --link mysql-standalone:mysql -d concretepage")
+                script {
+                    docker.stop("article-application")
+                    docker.run("-p 9090:9090 --name article-application --link mysql-standalone:mysql -d concretepage")
+                }
             }
         }
     }
