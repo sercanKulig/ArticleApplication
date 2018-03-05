@@ -36,16 +36,8 @@ pipeline {
         stage ('Docker Image Stage') {
             steps {
                 script {
-                    docker.build("-f Dockerfile -t article-application .")
-                }
-            }
-        }
-
-        stage ('Docker Run Stage') {
-            steps {
-                script {
-                    docker.stop("article-application")
-                    docker.run("-p 9090:9090 --name article-application --link mysql-standalone:mysql -d concretepage")
+                    powershell 'docker build -f Dockerfile -t article-application .'
+                    powershell 'docker image prune -f'
                 }
             }
         }
