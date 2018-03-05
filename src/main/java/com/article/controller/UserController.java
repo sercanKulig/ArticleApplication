@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping("/helloUser")
     public String helloUser() {
-        return "Hello World";
+        return "Hello Worlds";
     }
 
 }
