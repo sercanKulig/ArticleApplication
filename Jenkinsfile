@@ -51,6 +51,3 @@ pipeline {
         }
     }
 }
-
-#docker integration plugin for github hook integration
-#docker use github project setting and webhook like http://localhost:8080/github-webhook/
