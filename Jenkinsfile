@@ -33,18 +33,11 @@ pipeline {
             }
         }
 
-        stage ('Docker Image Stage') {
+        stage ('Docker Stage') {
             steps {
                 script {
                     powershell 'docker build -f Dockerfile -t article-application .'
                     powershell 'docker image prune -f'
-                }
-            }
-        }
-
-        stage ('Docker Run Stage') {
-            steps {
-                script {
                     powershell 'docker restart article-application'
                 }
             }
