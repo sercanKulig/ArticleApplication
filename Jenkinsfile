@@ -36,9 +36,10 @@ pipeline {
         stage ('Docker Stage') {
             steps {
                 script {
+                    powershell 'docker rm container article-application'
                     powershell 'docker build -f Dockerfile -t article-application .'
                     powershell 'docker image prune -f'
-                    powershell 'docker restart article-application'
+                    powershell 'docker run -p 9091:9091 --name article-application --link localhost:mysql -d article-application'
                 }
             }
         }
