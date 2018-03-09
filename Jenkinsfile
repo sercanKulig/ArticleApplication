@@ -40,7 +40,7 @@ pipeline {
                     powershell 'docker rm article-application'
                     powershell 'docker build -f Dockerfile -t article-application .'
                     powershell 'docker image prune -f'
-                    powershell 'docker run -p 9091:9091 --name article-application --link localhost:mysql -d article-application'
+                    powershell 'docker run -p 9090:9090 --name article-application --link localhost:mysql -d article-application'
                 }
             }
         }
