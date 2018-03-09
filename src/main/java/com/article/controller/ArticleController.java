@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.article.services.ArticleServiceInterface;
 
+import java.util.Locale;
+
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -21,8 +23,8 @@ public class ArticleController {
 
     @ApiOperation(value = "Returns Articles", response = Article.class)
     @RequestMapping(method = RequestMethod.GET, value = "/articles")
-    public ArticleDTO getArticles() {
-        return articleService.getAllArticleList();
+    public ArticleDTO getArticles(@RequestHeader("Accept-Language") String locale) {
+        return articleService.getAllArticleList(locale);
     }
 
     @ApiOperation(value = "Returns Article", response = Article.class)

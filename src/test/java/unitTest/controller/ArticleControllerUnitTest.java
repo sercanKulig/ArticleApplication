@@ -51,13 +51,13 @@ public class ArticleControllerUnitTest extends Reference {
         List<Article> articles = Collections.singletonList(
                 new Article("article","articleCategory",new Date()));
         ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, articles);
-        when(articleService.getAllArticleList()).thenReturn(articleDTO);
+        when(articleService.getAllArticleList("eng")).thenReturn(articleDTO);
         mockMvc
                 .perform(get("/api/articles"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status", is(articleDTO.getStatus())))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
-        verify(articleService, times(1)).getAllArticleList();
+        verify(articleService, times(1)).getAllArticleList("eng");
         verifyNoMoreInteractions(articleService);
     }
 

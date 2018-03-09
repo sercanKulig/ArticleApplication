@@ -45,10 +45,10 @@ public class MainController  implements CommandLineRunner {
     }
 
     public void run(String... strings) {
-//        // save user
+        // save user
         userService.addUser(new User(1, "123456", Role.USER, "admin", "admin", "admin", "email", true, "", "", "", "", "", "", "", "", true, false));
 
-//        // save article
+        // save article
         Stream.of(
             new Article("article_1","articleCategory",new Date()),
             new Article("article_2","articleCategory",new Date()),

@@ -6,6 +6,7 @@
         <fileset id="fileset" name="SpringSecurityConfiguration" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/article/config/SwaggerConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/article/config/SecurityConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/article/config/InternationalizationConfig.java</file>
         </fileset>
       </configuration>
     </facet>
