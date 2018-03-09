@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -19,6 +20,7 @@ import unitTest.Reference;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -34,6 +36,8 @@ public class ArticleControllerUnitTest extends Reference {
 
     @Mock
     private ArticleService articleService;
+    @Mock
+    private MessageSource messageSource;
 
     @InjectMocks
     private ArticleController articleController;
@@ -50,10 +54,10 @@ public class ArticleControllerUnitTest extends Reference {
     public void getArticles() throws Exception {
         List<Article> articles = Collections.singletonList(
                 new Article("article","articleCategory",new Date()));
-        ArticleDTO articleDTO = new  ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, articles);
+        ArticleDTO articleDTO = new  ArticleDTO(true, messageSource.getMessage("success.ArticleDAO-getAllArticleList",null, new Locale("eng")), ResponseMessageStatus.SUCCESS, articles);
         when(articleService.getAllArticleList("eng")).thenReturn(articleDTO);
         mockMvc
-                .perform(get("/api/articles"))
+                .perform(get("/api/articles").header("Accept-Language", "eng"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status", is(articleDTO.getStatus())))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));

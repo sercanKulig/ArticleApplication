@@ -50,7 +50,8 @@ public class ArticleControllerIntegrationTest extends Reference {
 
         mockMvc
                 .perform(get("/api/articles")
-                        .header("Authorization",token))
+                        .header("Authorization",token)
+                .header("Accept-Language", "eng"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }

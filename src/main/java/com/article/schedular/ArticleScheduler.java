@@ -35,6 +35,6 @@ public class ArticleScheduler {
 
 //    @Scheduled(fixedRate = 5000)
     public void scheduleUsingRate() {
-        articleDAO.getAllArticleList();
+        articleDAO.getAllArticleList("eng");
     }
 }

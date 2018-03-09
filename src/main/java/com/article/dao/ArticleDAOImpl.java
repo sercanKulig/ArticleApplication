@@ -3,12 +3,15 @@ package com.article.dao;
 import com.article.entity.Article;
 import com.article.enumerations.ResponseMessageStatus;
 import com.article.dto.ArticleDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 
 @Transactional
 @Repository("articleDAO")
@@ -17,13 +20,16 @@ public class ArticleDAOImpl implements ArticleDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @Override
-    public ArticleDTO getAllArticleList() {
+    public ArticleDTO getAllArticleList(String locale) {
         try{
             String hql = "FROM Article as atcl ORDER BY atcl.articleId";
-            return new ArticleDTO(true, "ArticleDAO - getAllArticleList", ResponseMessageStatus.SUCCESS, (List<Article>) entityManager.createQuery(hql).getResultList());
+            return new ArticleDTO(true, messageSource.getMessage("success.ArticleDAO-getAllArticleList",null, new Locale(locale)), ResponseMessageStatus.SUCCESS, (List<Article>) entityManager.createQuery(hql).getResultList());
         } catch (Throwable throwable) {
-            return new ArticleDTO(false,"ArticleDAO - getAllArticleList", ResponseMessageStatus.ERROR);
+            return new ArticleDTO(false,messageSource.getMessage("success.ArticleDAO-getAllArticleList",null, new Locale(locale)), ResponseMessageStatus.ERROR);
         }
 
 

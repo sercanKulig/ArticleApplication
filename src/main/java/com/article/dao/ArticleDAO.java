@@ -4,7 +4,7 @@ import com.article.entity.Article;
 import com.article.dto.ArticleDTO;
 
 public interface ArticleDAO {
-    ArticleDTO getAllArticleList();
+    ArticleDTO getAllArticleList(String locale);
     ArticleDTO getArticle(long id);
     ArticleDTO addArticle(Article article);
     ArticleDTO updateArticle(Article article, long id);
