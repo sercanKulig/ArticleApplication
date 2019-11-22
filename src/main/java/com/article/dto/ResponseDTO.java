@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.stereotype.Component;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseDTO {
+public abstract class ResponseDTO {
     private Boolean status;
     private String message;
     private ResponseMessageStatus responseMessageStatus;
